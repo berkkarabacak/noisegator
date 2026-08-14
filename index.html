@@ -32,7 +32,7 @@
         </svg>
         <div>
           <h1>NoiseGator</h1>
-          <p>Modern <span>0.9</span></p>
+          <p>Modern <span>0.10</span></p>
         </div>
       </div>
       <div class="nav-links">
@@ -44,29 +44,34 @@
 
     <header class="hero" id="download">
       <div>
-        <div class="kicker">Desktop noise gate · 0.9</div>
+        <div class="kicker">Desktop noise gate · 0.10</div>
         <h2>Cut the noise.<br /><em>Hear yourself. Talk clean.</em></h2>
         <p class="pitch">A microphone noise gate for VoIP. Gate the room, boost the send, and echo back a local monitor so you can hear yourself — then route the clean mic into Discord, Zoom, or Teams.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Windows.zip">Download for Windows</a>
+          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml">Download Windows exe</a>
           <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Modern.zip">Source zip</a>
         </div>
-        <p class="note">Windows portable zip · Python 3.10+ · PortAudio ships in the sounddevice wheel</p>
+        <p class="note">One-file Windows exe from GitHub Actions · open the latest green run and grab the NoiseGator.exe artifact</p>
       </div>
     </header>
 
     <figure class="shot-wrap">
       <div class="shot glass">
-        <img src="preview.png" width="1100" height="720" alt="NoiseGator Modern 0.9 dashboard — threshold knob, echo-back slider, live waveform" />
+        <img src="preview.png" width="1100" height="720" alt="NoiseGator Modern 0.10 dashboard — dB threshold, hysteresis, echo-back, live waveform" />
       </div>
     </figure>
 
     <h2 class="section-title" id="features">Built for the call</h2>
     <section class="features">
       <article class="feat glass">
-        <div class="ico">THR</div>
-        <h3>Threshold knob</h3>
-        <p>Circular gate threshold. Opens when the averaged level stays at or above the mark.</p>
+        <div class="ico">dB</div>
+        <h3>Threshold in dB</h3>
+        <p>Knob from −60 to 0 dB. A dashed line on the waveform marks the same level. Opens when the attack-window average stays at or above it.</p>
+      </article>
+      <article class="feat glass">
+        <div class="ico">dB</div>
+        <h3>Hysteresis</h3>
+        <p>Closes only after the level drops below (threshold − hysteresis), so the gate does not chatter around the line.</p>
       </article>
       <article class="feat glass">
         <div class="ico">ms</div>
@@ -93,7 +98,7 @@
     <section class="req" id="requirements">
       <article class="glass">
         <h3>Requirements</h3>
-        <p>Windows 10/11. Python 3.10 or newer (the zip’s <code>NoiseGator.bat</code> launches <code>pythonw app.py</code>).</p>
+        <p>Windows 10/11. The one-file exe needs no Python. The source zip still runs with Python 3.10+ (<code>NoiseGator.bat</code> launches <code>pythonw app.py</code>).</p>
         <p style="margin-top:10px">A virtual audio cable for VoIP — <strong style="color:#d9fff6">VB-Cable</strong> is the usual pick. NoiseGator does not create a virtual microphone.</p>
         <p style="margin-top:10px">On Windows, <code>pip install sounddevice</code> wheels usually bundle PortAudio. No extra DLL hunt.</p>
       </article>
