@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://berkkarabacak.github.io/noisegator/sitemap.xml

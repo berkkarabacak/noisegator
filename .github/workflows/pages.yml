@@ -1,19 +1,15 @@
 name: Deploy site
-
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
-
 jobs:
   deploy:
     environment:
@@ -22,24 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Stage marketing site
         run: |
           mkdir -p _site/downloads
-          for f in index.html styles.css preview.png .nojekyll; do
-            if [ -e "$f" ]; then
-              cp -a "$f" _site/
-            fi
-          done
-          if [ -d downloads ]; then
-            cp -a downloads/. _site/downloads/
-          fi
-
+          cp index.html styles.css preview.png .nojekyll robots.txt sitemap.xml privacy.html _site/
+          if [ -d downloads ]; then cp -R downloads/. _site/downloads/; fi
       - uses: actions/configure-pages@v5
-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-
       - id: deployment
         uses: actions/deploy-pages@v4
