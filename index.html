@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NoiseGator Modern — mic noise gate for VoIP</title>
+  <title>NoiseGator Modern 0.10 — mic noise gate for VoIP</title>
   <meta name="description" content="Desktop microphone noise gate. Hear yourself. Send a clean mic to Discord, Zoom, or Teams via a virtual cable." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232ee6c7'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='8' width='32' height='32' fill='%070b14'/%3E%3Cpath d='M7 16h5l3-7 4 14 3-7h3' fill='none' stroke='url(%23g)' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 </head>
@@ -17,10 +17,12 @@
   <div class="orb orb-a" aria-hidden="true"></div>
   <div class="orb orb-b" aria-hidden="true"></div>
 
+  <a class="skip" href="#main">Skip to content</a>
+
   <div class="wrap">
-    <nav class="nav glass">
-      <div class="brand">
-        <svg viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
+    <nav class="nav glass" aria-label="Primary">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">
           <defs>
             <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#2ee6c7"/>
@@ -30,93 +32,194 @@
           <rect x="1.5" y="1.5" width="33" height="33" rx="10" fill="rgba(14,20,36,.7)" stroke="url(#lg)" stroke-width="1.4"/>
           <path d="M8 18h5.2l2.6-7.2 3.6 14.2 2.5-7h6.2" fill="none" stroke="url(#lg)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div>
-          <h1>NoiseGator</h1>
-          <p>Modern <span>0.10</span></p>
+        <span class="wordmark">NoiseGator</span>
+        <span class="ver">0.10</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+      <div class="nav-end" id="nav-links">
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#setup">Setup</a>
+          <a href="https://github.com/berkkarabacak/noisegator" rel="noopener">GitHub</a>
         </div>
-      </div>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#requirements">Setup</a>
-        <a href="#download">Download</a>
+        <a class="btn btn-nav" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml" rel="noopener">Get the exe</a>
       </div>
     </nav>
 
-    <header class="hero" id="download">
-      <div>
-        <div class="kicker">Desktop noise gate · 0.10</div>
-        <h2>Cut the noise.<br /><em>Hear yourself. Talk clean.</em></h2>
-        <p class="pitch">A microphone noise gate for VoIP. Gate the room, boost the send, and echo back a local monitor so you can hear yourself — then route the clean mic into Discord, Zoom, or Teams.</p>
+    <main id="main">
+      <header class="hero" id="top">
+        <p class="kicker">Mic noise gate for VoIP</p>
+        <h1>Cut the noise.<br /><em>Hear yourself.</em></h1>
+        <p class="pitch">Gate the room, monitor locally, and send a clean mic to Discord, Zoom, or Teams through a virtual cable.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml">Download Windows exe</a>
-          <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Modern.zip">Source zip</a>
+          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml" rel="noopener">Get Windows exe</a>
+          <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Modern.zip" rel="noopener">Source</a>
         </div>
-        <p class="note">One-file Windows exe from GitHub Actions · open the latest green run and grab the NoiseGator.exe artifact</p>
-      </div>
-    </header>
+        <ul class="stats" aria-label="Product facts">
+          <li><strong>0.10</strong><span>Modern</span></li>
+          <li><strong>one-file</strong><span>Windows exe</span></li>
+          <li><strong>dB gate</strong><span>−60…0</span></li>
+        </ul>
+      </header>
 
-    <figure class="shot-wrap">
-      <div class="shot glass">
-        <img src="preview.png" width="1100" height="720" alt="NoiseGator Modern 0.10 dashboard — dB threshold, hysteresis, echo-back, live waveform" />
-      </div>
-    </figure>
+      <figure class="shot-wrap">
+        <div class="shot-glow" aria-hidden="true"></div>
+        <div class="window">
+          <div class="window-bar">
+            <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="window-title">NoiseGator</span>
+          </div>
+          <img src="preview.png" width="1100" height="720" alt="NoiseGator Modern 0.10 — live waveform, dB threshold knob, hysteresis, echo-back, and device routing" />
+        </div>
+      </figure>
 
-    <h2 class="section-title" id="features">Built for the call</h2>
-    <section class="features">
-      <article class="feat glass">
-        <div class="ico">dB</div>
-        <h3>Threshold in dB</h3>
-        <p>Knob from −60 to 0 dB. A dashed line on the waveform marks the same level. Opens when the attack-window average stays at or above it.</p>
-      </article>
-      <article class="feat glass">
-        <div class="ico">dB</div>
-        <h3>Hysteresis</h3>
-        <p>Closes only after the level drops below (threshold − hysteresis), so the gate does not chatter around the line.</p>
-      </article>
-      <article class="feat glass">
-        <div class="ico">ms</div>
-        <h3>Attack / Release</h3>
-        <p>How long the level must stay above or below threshold before the gate moves.</p>
-      </article>
-      <article class="feat glass">
-        <div class="ico">%</div>
-        <h3>Echo-back volume</h3>
-        <p>Local hear-yourself monitor, separate from the dB send boost to the VoIP device.</p>
-      </article>
-      <article class="feat glass">
-        <div class="ico">Hz</div>
-        <h3>Voice filter</h3>
-        <p>40 Hz high-pass, 1.5 kHz low-pass, plus slow adaptive gain for speech clarity.</p>
-      </article>
-      <article class="feat glass">
-        <div class="ico">I/O</div>
-        <h3>Device routing</h3>
-        <p>Pick input, output, and an echo-back playback device — or Off for no extra stream.</p>
-      </article>
-    </section>
+      <section class="features" id="features" aria-labelledby="features-title">
+        <div class="section-head">
+          <p class="kicker">Controls</p>
+          <h2 id="features-title">What the gate actually does</h2>
+        </div>
 
-    <section class="req" id="requirements">
-      <article class="glass">
-        <h3>Requirements</h3>
-        <p>Windows 10/11. The one-file exe needs no Python. The source zip still runs with Python 3.10+ (<code>NoiseGator.bat</code> launches <code>pythonw app.py</code>).</p>
-        <p style="margin-top:10px">A virtual audio cable for VoIP — <strong style="color:#d9fff6">VB-Cable</strong> is the usual pick. NoiseGator does not create a virtual microphone.</p>
-        <p style="margin-top:10px">On Windows, <code>pip install sounddevice</code> wheels usually bundle PortAudio. No extra DLL hunt.</p>
-      </article>
-      <article class="glass">
-        <h3>VoIP routing</h3>
-        <ol>
-          <li>Input → your real microphone</li>
-          <li>Output → VB-Cable Input (virtual)</li>
-          <li>Echo-back → headphones / speakers, or Off</li>
-          <li>In Discord / Zoom / Teams, set the mic to the cable’s playback device</li>
+        <div class="bento">
+          <article class="card card-lg">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12h3l2.2-6 3.2 12 2.4-6H21"/>
+                <path d="M3 8.5h18" stroke-dasharray="2.2 2.6" opacity=".7"/>
+              </svg>
+            </div>
+            <h3>Threshold in dB</h3>
+            <p>Knob from −60 to 0 dB. A dashed line on the waveform marks the same level. Opens when the attack-window average stays at or above it.</p>
+            <svg class="wave-deco" viewBox="0 0 420 88" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#a855f7"/>
+                  <stop offset="1" stop-color="#2ee6c7"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 52 C 18 52, 22 18, 38 18 S 58 72, 76 72 S 98 28, 116 28 S 138 60, 156 60 S 176 40, 196 40 S 218 70, 238 70 S 258 36, 280 36 S 304 54, 324 54 S 348 44, 368 44 S 392 50, 420 50" stroke="url(#wg)" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M0 34h420" stroke="#2ee6c7" stroke-width="1.15" stroke-dasharray="5 6" opacity=".72"/>
+            </svg>
+          </article>
+
+          <article class="card card-mid">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                <path d="M4 8h16"/>
+                <path d="M4 16h16" opacity=".55"/>
+                <path d="M8 8v8" stroke-dasharray="2 2.4"/>
+              </svg>
+            </div>
+            <h3>Hysteresis</h3>
+            <p>Closes only after the level drops below threshold minus hysteresis, so the gate does not chatter around the line.</p>
+          </article>
+
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 16 V8 l5 5 5-8 6 6"/>
+              </svg>
+            </div>
+            <h3>Attack / Release</h3>
+            <p>How long the level must stay above or below threshold before the gate moves.</p>
+          </article>
+
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 10v4h3l4 4V6L7 10H4z"/>
+                <path d="M16 9.2a3.2 3.2 0 0 1 0 5.6"/>
+                <path d="M18.4 7a6 6 0 0 1 0 10"/>
+              </svg>
+            </div>
+            <h3>Echo-back</h3>
+            <p>Local hear-yourself monitor — its own volume and playback device, separate from the send to VoIP.</p>
+          </article>
+
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                <path d="M4 12h4"/>
+                <path d="M16 12h4"/>
+                <rect x="8.5" y="6" width="7" height="12" rx="2"/>
+                <path d="M11 9v6M13 10v4" opacity=".7"/>
+              </svg>
+            </div>
+            <h3>Voice filter</h3>
+            <p>40 Hz high-pass, 1.5 kHz low-pass, plus slow adaptive gain for speech.</p>
+          </article>
+
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="8" r="2.1"/>
+                <circle cx="18" cy="8" r="2.1"/>
+                <circle cx="12" cy="17" r="2.1"/>
+                <path d="M8 8.6 10.4 15.2M16 8.6 13.6 15.2"/>
+              </svg>
+            </div>
+            <h3>Routing</h3>
+            <p>Pick input, output, and an echo-back device — or Off. The app does not create a virtual mic.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="setup" id="setup" aria-labelledby="setup-title">
+        <div class="section-head">
+          <p class="kicker">Four steps</p>
+          <h2 id="setup-title">Into Discord, Zoom, or Teams</h2>
+          <p class="section-sub">Needs VB-Cable or similar. NoiseGator does not create a virtual microphone.</p>
+        </div>
+        <ol class="steps">
+          <li class="card step">
+            <span class="n">01</span>
+            <h3>Mic</h3>
+            <p>Input → your real microphone.</p>
+          </li>
+          <li class="card step">
+            <span class="n">02</span>
+            <h3>VB-Cable</h3>
+            <p>Output → VB-Cable Input.</p>
+          </li>
+          <li class="card step">
+            <span class="n">03</span>
+            <h3>Echo-back</h3>
+            <p>Headphones or speakers — or Off.</p>
+          </li>
+          <li class="card step">
+            <span class="n">04</span>
+            <h3>The call</h3>
+            <p>In Discord / Zoom / Teams, set the mic to the cable.</p>
+          </li>
         </ol>
-      </article>
-    </section>
+      </section>
+    </main>
 
     <footer class="site-foot">
-      Remake of Expenosa NoiseGator 0.63 · CC BY-NC 2.0<br />
-      UI remake — not a redistribution of the 2014 Swing application.
+      <p>Remake of Expenosa NoiseGator 0.63 · CC BY-NC 2.0. Not a redistribution of the 2014 Swing app.</p>
+      <p><a href="https://github.com/berkkarabacak/noisegator" rel="noopener">github.com/berkkarabacak/noisegator</a></p>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var btn = document.querySelector(".nav-toggle");
+      var nav = document.querySelector(".nav");
+      if (!btn || !nav) return;
+      btn.addEventListener("click", function () {
+        var open = nav.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
+      nav.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", function () {
+          nav.classList.remove("is-open");
+          btn.setAttribute("aria-expanded", "false");
+          btn.setAttribute("aria-label", "Open menu");
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
