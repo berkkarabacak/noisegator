@@ -98,6 +98,7 @@ ul, ol { list-style: none; }
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+/* —— Nav —— */
 .nav {
   position: sticky;
   top: 14px;
@@ -176,6 +177,7 @@ ul, ol { list-style: none; }
 .nav.is-open .nav-toggle span:first-child { top: 17.5px; transform: rotate(40deg); }
 .nav.is-open .nav-toggle span:last-child { top: 17.5px; transform: rotate(-40deg); }
 
+/* —— Buttons —— */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -219,6 +221,7 @@ ul, ol { list-style: none; }
 }
 .btn-nav:hover { filter: brightness(1.06); transform: translateY(-2px); }
 
+/* —— Hero —— */
 .hero {
   text-align: center;
   padding: 88px 8px 36px;
@@ -300,6 +303,7 @@ ul, ol { list-style: none; }
   letter-spacing: 0.04em;
 }
 
+/* —— Product shot —— */
 .shot-wrap {
   position: relative;
   margin: 28px auto 108px;
@@ -369,6 +373,7 @@ ul, ol { list-style: none; }
 
 .window img { width: 100%; }
 
+/* —— Sections —— */
 .section-head {
   text-align: center;
   margin-bottom: 36px;
@@ -390,6 +395,7 @@ ul, ol { list-style: none; }
   color: var(--muted);
 }
 
+/* —— Bento —— */
 .features { margin-bottom: 112px; }
 
 .bento {
@@ -460,6 +466,7 @@ ul, ol { list-style: none; }
   opacity: 0.95;
 }
 
+/* —— Setup steps —— */
 .setup { margin-bottom: 96px; }
 
 .steps {
@@ -487,6 +494,7 @@ ul, ol { list-style: none; }
 
 .step p { font-size: 13.5px; }
 
+/* —— Footer —— */
 .site-foot {
   text-align: center;
   font-size: 12px;
@@ -502,6 +510,7 @@ ul, ol { list-style: none; }
 
 .site-foot a:hover { color: var(--teal); }
 
+/* —— Motion —— */
 .hero,
 .shot-wrap,
 .features,
@@ -526,6 +535,7 @@ ul, ol { list-style: none; }
   }
 }
 
+/* —— Responsive —— */
 @media (max-width: 880px) {
   .bento { grid-template-columns: repeat(2, 1fr); }
   .card-lg, .card-mid { grid-column: span 2; }
@@ -571,4 +581,247 @@ ul, ol { list-style: none; }
   .shot-wrap { margin-bottom: 72px; }
   .features, .setup { margin-bottom: 72px; }
   .wave-deco { height: 64px; }
+}
+
+
+/* —— SEO / ads upgrade: works, why, faq, support, privacy —— */
+.hero h1 {
+  font-size: clamp(36px, 6.4vw, 72px);
+}
+
+.pitch { max-width: 580px; }
+
+.nav-links {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+
+.works-label {
+  margin: 28px 0 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: center;
+}
+
+.works {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px auto 0;
+  max-width: 520px;
+}
+
+.works li {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+}
+
+.why,
+.faq,
+.support {
+  margin-bottom: 112px;
+}
+
+.why,
+.faq,
+.support,
+.privacy {
+  animation: rise 0.7s var(--ease) both;
+}
+
+.why { animation-delay: 0.12s; }
+.faq { animation-delay: 0.22s; }
+.support { animation-delay: 0.26s; }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  padding: 0;
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-right: 1.6px solid var(--teal);
+  border-bottom: 1.6px solid var(--teal);
+  transform: rotate(45deg);
+  transition: transform 0.2s var(--ease);
+  margin-top: -4px;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(-135deg);
+  margin-top: 4px;
+}
+
+.faq-item[open] {
+  border-color: rgba(46, 230, 199, 0.32);
+}
+
+.faq-item p {
+  padding: 0 20px 20px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.support-card {
+  text-align: center;
+  padding: 40px 32px 36px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.support-card h2 {
+  font-family: var(--display);
+  font-size: clamp(26px, 4vw, 36px);
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.support-card > p {
+  max-width: 480px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.support-card .cta { margin-top: 28px; }
+
+.privacy {
+  padding: 72px 8px 48px;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.privacy h1 {
+  font-family: var(--display);
+  font-size: clamp(36px, 6vw, 56px);
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.privacy-updated {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 28px;
+}
+
+.privacy-card {
+  padding: 28px 28px 22px;
+}
+
+.privacy-card h2 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 22px 0 8px;
+}
+
+.privacy-card h2:first-child { margin-top: 0; }
+
+.privacy-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.privacy-card a {
+  color: var(--teal);
+  border-bottom: 1px solid rgba(46, 230, 199, 0.35);
+}
+
+.privacy-card a:hover { color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .why, .faq, .support, .privacy { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .nav-toggle { display: block; order: 2; }
+  .brand { order: 1; }
+  .nav { flex-wrap: wrap; }
+  .nav-end {
+    display: none;
+    width: 100%;
+    order: 3;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 6px 6px 8px;
+  }
+  .nav.is-open .nav-end { display: flex; }
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 10px 8px;
+  }
+  .btn-nav { width: 100%; }
+}
+
+@media (max-width: 880px) {
+  .why-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why, .faq, .support { margin-bottom: 72px; }
+  .privacy { padding-top: 48px; }
+  .privacy-card { padding: 22px 18px 16px; }
+  .support-card { padding: 28px 18px 24px; }
 }

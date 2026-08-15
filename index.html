@@ -3,13 +3,104 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NoiseGator Modern 0.10 — mic noise gate for VoIP</title>
-  <meta name="description" content="Desktop microphone noise gate. Hear yourself. Send a clean mic to Discord, Zoom, or Teams via a virtual cable." />
+  <title>NoiseGator — Free Mic Noise Gate for Discord, Zoom &amp; Teams</title>
+  <meta name="description" content="Free Windows microphone noise gate. Cut keyboard clicks and room noise on Discord, Zoom, and Teams. Hear yourself locally. Send a clean mic. No account." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://berkkarabacak.github.io/noisegator/" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NoiseGator — Free Mic Noise Gate for Discord, Zoom &amp; Teams" />
+  <meta property="og:description" content="Free Windows microphone noise gate. Cut keyboard clicks and room noise on Discord, Zoom, and Teams. Hear yourself locally. Send a clean mic. No account." />
+  <meta property="og:url" content="https://berkkarabacak.github.io/noisegator/" />
+  <meta property="og:image" content="https://berkkarabacak.github.io/noisegator/preview.png" />
+  <meta property="og:image:alt" content="NoiseGator Windows app with live waveform, dB threshold knob, hysteresis, echo-back, and mic routing" />
+  <meta property="og:site_name" content="NoiseGator" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NoiseGator — Free Mic Noise Gate for Discord, Zoom &amp; Teams" />
+  <meta name="twitter:description" content="Free Windows microphone noise gate. Cut keyboard clicks and room noise on Discord, Zoom, and Teams. Hear yourself locally. Send a clean mic. No account." />
+  <meta name="twitter:image" content="https://berkkarabacak.github.io/noisegator/preview.png" />
+  <meta name="twitter:image:alt" content="NoiseGator Windows app with live waveform, dB threshold knob, hysteresis, echo-back, and mic routing" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232ee6c7'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='8' width='32' height='32' fill='%070b14'/%3E%3Cpath d='M7 16h5l3-7 4 14 3-7h3' fill='none' stroke='url(%23g)' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "NoiseGator",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Windows",
+        "url": "https://berkkarabacak.github.io/noisegator/",
+        "image": "https://berkkarabacak.github.io/noisegator/preview.png",
+        "description": "Free Windows microphone noise gate. Cut keyboard clicks and room noise on Discord, Zoom, and Teams. Hear yourself locally. Send a clean mic. No account.",
+        "downloadUrl": "https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a microphone noise gate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A microphone noise gate mutes the mic when the level stays below a threshold. NoiseGator opens when your voice is loud enough and closes on quiet keyboard clicks and room noise."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does NoiseGator work with Discord, Zoom, and Teams?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Route the gated output through a virtual cable (VB-Cable or similar), then pick that cable as the microphone in Discord, Zoom, or Teams."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need VB-Cable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, or another virtual cable. NoiseGator does not create a virtual microphone. You send the gated output to a cable, then the call app uses that cable as its mic."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is NoiseGator free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The core app is free, with no account. Star the repo if it helps. Paid Pro or GitHub Sponsors may come later."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it send my voice to the cloud?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Audio stays on your PC. This site has no accounts and no tracking cookies of its own. GitHub Pages and GitHub may log visits and downloads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it create a virtual microphone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Pair it with VB-Cable or similar, then set that cable as the mic in your call app."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="app-bg" aria-hidden="true"></div>
@@ -40,8 +131,10 @@
       </button>
       <div class="nav-end" id="nav-links">
         <div class="nav-links">
+          <a href="#why">Why</a>
           <a href="#features">Features</a>
           <a href="#setup">Setup</a>
+          <a href="#faq">FAQ</a>
           <a href="https://github.com/berkkarabacak/noisegator" rel="noopener">GitHub</a>
         </div>
         <a class="btn btn-nav" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml" rel="noopener">Get the exe</a>
@@ -50,17 +143,24 @@
 
     <main id="main">
       <header class="hero" id="top">
-        <p class="kicker">Mic noise gate for VoIP</p>
-        <h1>Cut the noise.<br /><em>Hear yourself.</em></h1>
-        <p class="pitch">Gate the room, monitor locally, and send a clean mic to Discord, Zoom, or Teams through a virtual cable.</p>
+        <p class="kicker">Free Windows mic noise gate</p>
+        <h1>Kill keyboard noise on your mic<br /><em>Before Discord hears it.</em></h1>
+        <p class="pitch">Free noise gate for Discord, Zoom, and Teams. Cut keyboard clicks and room noise. Hear yourself locally. Send a clean mic through a virtual cable.</p>
         <div class="cta">
           <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml" rel="noopener">Get Windows exe</a>
           <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Modern.zip" rel="noopener">Source</a>
         </div>
         <ul class="stats" aria-label="Product facts">
-          <li><strong>0.10</strong><span>Modern</span></li>
-          <li><strong>one-file</strong><span>Windows exe</span></li>
+          <li><strong>Free</strong><span>no account</span></li>
+          <li><strong>Windows</strong><span>one-file</span></li>
           <li><strong>dB gate</strong><span>−60…0</span></li>
+        </ul>
+        <p class="works-label">Works with</p>
+        <ul class="works" aria-label="Works with">
+          <li>Discord</li>
+          <li>Zoom</li>
+          <li>Teams</li>
+          <li>VB-Cable</li>
         </ul>
       </header>
 
@@ -71,9 +171,65 @@
             <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="window-title">NoiseGator</span>
           </div>
-          <img src="preview.png" width="1100" height="720" alt="NoiseGator Modern 0.10 — live waveform, dB threshold knob, hysteresis, echo-back, and device routing" />
+          <img src="preview.png" width="1100" height="720" alt="NoiseGator free Windows microphone noise gate. Live waveform, dB threshold knob, hysteresis, echo-back, and device routing for Discord, Zoom, and Teams" />
         </div>
       </figure>
+
+      <section class="why" id="why" aria-labelledby="why-title">
+        <div class="section-head">
+          <p class="kicker">The problem</p>
+          <h2 id="why-title">Your call hears the keyboard first</h2>
+          <p class="section-sub">NoiseGator is a local microphone noise gate, not NVIDIA Broadcast or Krisp. It does not create a virtual mic.</p>
+        </div>
+        <div class="why-grid">
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="8" width="18" height="10" rx="2"/>
+                <path d="M7 8V6.5A2.5 2.5 0 0 1 9.5 4h5A2.5 2.5 0 0 1 17 6.5V8"/>
+                <path d="M7 12h.01M11 12h2M17 12h.01M8 15h8"/>
+              </svg>
+            </div>
+            <h3>Keyboard clacks</h3>
+            <p>Mechanical keys sit next to the mic. A gate closes on the quiet gaps so Discord, Zoom, and Teams do not hear every tap.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v4"/>
+                <path d="M8 9H4l2 3-2 3h4"/>
+                <path d="M16 9h4l-2 3 2 3h-4"/>
+                <path d="M9 20h6"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <h3>Fan and AC hum</h3>
+            <p>Room tone sits under your voice. Set the dB threshold so the mic stays shut until you speak.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 10v4h3l4 4V6L7 10H4z"/>
+                <path d="M16 9.2a3.2 3.2 0 0 1 0 5.6"/>
+                <path d="M18.4 7a6 6 0 0 1 0 10"/>
+              </svg>
+            </div>
+            <h3>Talking too loud</h3>
+            <p>If you cannot hear yourself, you lean into the mic. Echo-back lets you monitor locally, at your own volume.</p>
+          </article>
+          <article class="card">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 16c4-8 12-8 16 0"/>
+                <path d="M8 18c2.2-4 5.8-4 8 0"/>
+                <circle cx="12" cy="8" r="2.2"/>
+              </svg>
+            </div>
+            <h3>Cloud voice apps</h3>
+            <p>Some tools upload your voice to clean it. This gate runs on your Windows PC. Audio stays there.</p>
+          </article>
+        </div>
+      </section>
 
       <section class="features" id="features" aria-labelledby="features-title">
         <div class="section-head">
@@ -90,7 +246,7 @@
               </svg>
             </div>
             <h3>Threshold in dB</h3>
-            <p>Knob from −60 to 0 dB. A dashed line on the waveform marks the same level. Opens when the attack-window average stays at or above it.</p>
+            <p>Set the microphone noise gate from −60 to 0 dB. A dashed line on the waveform marks the same level. The gate opens when the attack-window average stays at or above it.</p>
             <svg class="wave-deco" viewBox="0 0 420 88" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
@@ -112,7 +268,7 @@
               </svg>
             </div>
             <h3>Hysteresis</h3>
-            <p>Closes only after the level drops below threshold minus hysteresis, so the gate does not chatter around the line.</p>
+            <p>The gate closes only after the level drops below threshold minus hysteresis, so keyboard clicks near the line do not chatter the mic.</p>
           </article>
 
           <article class="card">
@@ -122,7 +278,7 @@
               </svg>
             </div>
             <h3>Attack / Release</h3>
-            <p>How long the level must stay above or below threshold before the gate moves.</p>
+            <p>How long the mic level must stay above or below the noise gate threshold before it opens or closes.</p>
           </article>
 
           <article class="card">
@@ -134,7 +290,7 @@
               </svg>
             </div>
             <h3>Echo-back</h3>
-            <p>Local hear-yourself monitor — its own volume and playback device, separate from the send to VoIP.</p>
+            <p>Hear yourself locally on headphones or speakers, with its own volume, separate from the clean mic you send to Discord, Zoom, or Teams.</p>
           </article>
 
           <article class="card">
@@ -147,7 +303,7 @@
               </svg>
             </div>
             <h3>Voice filter</h3>
-            <p>40 Hz high-pass, 1.5 kHz low-pass, plus slow adaptive gain for speech.</p>
+            <p>40 Hz high-pass, 1.5 kHz low-pass, plus slow adaptive gain for speech. Helps keep room rumble out of the gate.</p>
           </article>
 
           <article class="card">
@@ -160,7 +316,7 @@
               </svg>
             </div>
             <h3>Routing</h3>
-            <p>Pick input, output, and an echo-back device — or Off. The app does not create a virtual mic.</p>
+            <p>Pick input, output, and an echo-back device, or Off. NoiseGator does not create a virtual microphone. Pair it with VB-Cable for Discord, Zoom, or Teams.</p>
           </article>
         </div>
       </section>
@@ -185,7 +341,7 @@
           <li class="card step">
             <span class="n">03</span>
             <h3>Echo-back</h3>
-            <p>Headphones or speakers — or Off.</p>
+            <p>Headphones or speakers, or Off.</p>
           </li>
           <li class="card step">
             <span class="n">04</span>
@@ -194,11 +350,56 @@
           </li>
         </ol>
       </section>
+
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="section-head">
+          <p class="kicker">FAQ</p>
+          <h2 id="faq-title">Questions before you download</h2>
+        </div>
+        <div class="faq-list">
+          <details class="card faq-item">
+            <summary>What is a microphone noise gate?</summary>
+            <p>A microphone noise gate mutes the mic when the level stays below a threshold. NoiseGator opens when your voice is loud enough and closes on quiet keyboard clicks and room noise.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Does NoiseGator work with Discord, Zoom, and Teams?</summary>
+            <p>Yes. Route the gated output through a virtual cable (VB-Cable or similar), then pick that cable as the microphone in Discord, Zoom, or Teams.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Do I need VB-Cable?</summary>
+            <p>Yes, or another virtual cable. NoiseGator does not create a virtual microphone. You send the gated output to a cable, then the call app uses that cable as its mic.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Is NoiseGator free?</summary>
+            <p>Yes. The core app is free, with no account. Star the repo if it helps. Paid Pro or GitHub Sponsors may come later.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Does it send my voice to the cloud?</summary>
+            <p>No. Audio stays on your PC. This site has no accounts and no tracking cookies of its own. GitHub Pages and GitHub may log visits and downloads.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Does it create a virtual microphone?</summary>
+            <p>No. Pair it with VB-Cable or similar, then set that cable as the mic in your call app.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="support" id="support" aria-labelledby="support-title">
+        <div class="card support-card">
+          <p class="kicker">Support</p>
+          <h2 id="support-title">Free to download. Support if it helps.</h2>
+          <p>The core app is free, with no account. If it saves your calls, star the repo. Paid Pro or GitHub Sponsors can come later.</p>
+          <div class="cta">
+            <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator" rel="noopener">Star on GitHub</a>
+            <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/actions/workflows/windows-exe.yml" rel="noopener">Get the exe</a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-foot">
       <p>Remake of Expenosa NoiseGator 0.63 · CC BY-NC 2.0. Not a redistribution of the 2014 Swing app.</p>
-      <p><a href="https://github.com/berkkarabacak/noisegator" rel="noopener">github.com/berkkarabacak/noisegator</a></p>
+      <p><a href="privacy.html">Privacy</a> · <a href="https://github.com/berkkarabacak/noisegator" rel="noopener">github.com/berkkarabacak/noisegator</a></p>
     </footer>
   </div>
 
