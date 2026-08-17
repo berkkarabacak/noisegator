@@ -757,6 +757,8 @@ ul, ol { list-style: none; }
   background: var(--teal);
 }
 
+.pricing-cta { margin-top: auto; }
+
 .pricing-card .btn { width: 100%; }
 
 .pricing-card-featured {
