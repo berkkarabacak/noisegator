@@ -244,12 +244,27 @@
 
     <button class="ghost-btn" id="resetBtn" type="button">Reset to defaults</button>
 
+    <p class="trial-note">Trial: <span>unlimited</span></p>
+
     <div class="credit">
       NoiseGator Modern 0.10<br />
       UI remake of the 0.63 noise-gate idea.<br />
       Original © Expenosa 2014 · CC BY-NC 2.0
     </div>
   </aside>
+
+  <div class="trial-overlay" id="trialOverlay" hidden>
+    <div class="trial-modal glass" id="trialModal" role="dialog" aria-modal="true" aria-labelledby="trialTitle">
+      <p class="trial-kicker">Complimentary evaluation</p>
+      <h2 id="trialTitle">NoiseGator trial</h2>
+      <p class="trial-day" id="trialDay">Day 1 of your complimentary evaluation.</p>
+      <p class="trial-copy">The trial does not end. You can keep using every control.</p>
+      <div class="trial-actions">
+        <button class="trial-continue" id="trialContinue" type="button">Continue</button>
+        <button class="trial-support" id="trialSupport" type="button">Support</button>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

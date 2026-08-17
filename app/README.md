@@ -33,6 +33,8 @@ Preferences (devices, threshold, hysteresis, attack, release, volume, echo-back,
 - macOS: `~/Library/Application Support/noisegator/prefs.json`
 - Windows: `%APPDATA%\noisegator\prefs.json`
 
+A sidecar `trial.json` next to that file stores the first-launch timestamp for the unlimited-trial nag. The app stays fully usable if that file is missing or unreadable.
+
 Old 0.9 prefs stored threshold on a 0–91 scale (`dBFS + 91`). Those values are converted on load: `threshold_db = stored - 91`, then clamped to **−60 … 0**.
 
 ## VoIP / virtual cable
