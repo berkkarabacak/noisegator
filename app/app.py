@@ -25,6 +25,11 @@ from gate import BUFFER_FRAMES, CHANNELS, SAMPLE_RATE
 
 VERSION = "0.10"
 APP_NAME = "NoiseGator"
+SUPPORT_URL = "https://github.com/berkkarabacak/noisegator"
+ALLOWED_OPEN_URLS = frozenset({
+    SUPPORT_URL,
+    SUPPORT_URL + "/",
+})
 
 
 def _web_dir() -> Path:
@@ -55,7 +60,7 @@ DEFAULTS: dict[str, Any] = {
 }
 
 
-def config_path() -> Path:
+def config_dir() -> Path:
     if sys.platform == "win32":
         base = Path(os.environ.get("APPDATA", Path.home() / "AppData" / "Roaming"))
     elif sys.platform == "darwin":
@@ -63,8 +68,52 @@ def config_path() -> Path:
     else:
         base = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
     folder = base / "noisegator"
-    folder.mkdir(parents=True, exist_ok=True)
-    return folder / "prefs.json"
+    try:
+        folder.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
+    return folder
+
+
+def config_path() -> Path:
+    return config_dir() / "prefs.json"
+
+
+def trial_path() -> Path:
+    return config_dir() / "trial.json"
+
+
+def trial_day(first_launch: Any) -> int:
+    """Day number of the unlimited trial. Fail-open: always returns >= 1."""
+    try:
+        ts = float(first_launch)
+        elapsed = time.time() - ts
+        if not (elapsed >= 0):
+            return 1
+        return max(1, int(elapsed // 86400) + 1)
+    except Exception:
+        return 1
+
+
+def ensure_first_launch() -> float:
+    """Persist first-launch time next to prefs. Fail-open: never raise."""
+    now = time.time()
+    path = trial_path()
+    try:
+        if path.is_file():
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(raw, dict):
+                ts = float(raw.get("first_launch", 0))
+                if ts > 0:
+                    return ts
+    except Exception:
+        pass
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"first_launch": now}, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    return now
 
 
 def migrate_threshold(value: Any) -> float:
@@ -115,6 +164,7 @@ def save_prefs(prefs: dict[str, Any]) -> None:
 class AppState:
     def __init__(self, demo: bool) -> None:
         self.prefs = load_prefs()
+        self.first_launch = ensure_first_launch()
         self.engine = AudioEngine(demo=demo)
         self.engine.apply_params(
             threshold=float(self.prefs.get("threshold", -32)),
@@ -146,6 +196,11 @@ class AppState:
         snap["sample_rate"] = SAMPLE_RATE
         snap["buffer"] = BUFFER_FRAMES
         snap["channels"] = CHANNELS
+        snap["trial"] = {
+            "first_launch": self.first_launch,
+            "day": trial_day(self.first_launch),
+            "unlimited": True,
+        }
         return snap
 
     def update_prefs(self, patch: dict[str, Any]) -> None:
@@ -288,6 +343,19 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/reset":
             STATE.reset_defaults()
             code, body, ctype = _json_bytes({"ok": True, "prefs": STATE.prefs})
+            self._send(code, body, ctype)
+            return
+        if path == "/api/open-url":
+            url = str(payload.get("url") or SUPPORT_URL).strip()
+            if url not in ALLOWED_OPEN_URLS:
+                url = SUPPORT_URL
+            opened = False
+            try:
+                webbrowser.open(url)
+                opened = True
+            except Exception:
+                opened = False
+            code, body, ctype = _json_bytes({"ok": opened, "url": url})
             self._send(code, body, ctype)
             return
         self._send(404, b'{"error":"not found"}', "application/json")

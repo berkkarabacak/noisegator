@@ -534,6 +534,52 @@
     }
   });
 
+  /* ---------- unlimited trial nag (fail-open; never gates the app) ---------- */
+  const SUPPORT_URL = "https://github.com/berkkarabacak/noisegator";
+
+  function hideTrialNag() {
+    const el = $("#trialOverlay");
+    if (el) el.hidden = true;
+  }
+
+  function showTrialNag(day) {
+    const overlay = $("#trialOverlay");
+    if (!overlay || overlay.dataset.shown === "1") return;
+    overlay.dataset.shown = "1";
+    const n = Number(day);
+    const safe = Number.isFinite(n) && n >= 1 ? Math.floor(n) : 1;
+    const line = $("#trialDay");
+    if (line) line.textContent = `Day ${safe} of your complimentary evaluation.`;
+    overlay.hidden = false;
+    const cont = $("#trialContinue");
+    if (cont) cont.focus();
+  }
+
+  const trialContinue = $("#trialContinue");
+  const trialSupport = $("#trialSupport");
+  const trialOverlay = $("#trialOverlay");
+  if (trialContinue) trialContinue.addEventListener("click", hideTrialNag);
+  if (trialOverlay) {
+    trialOverlay.addEventListener("click", (e) => {
+      if (e.target === trialOverlay) hideTrialNag();
+    });
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && trialOverlay && !trialOverlay.hidden) hideTrialNag();
+  });
+  if (trialSupport) {
+    trialSupport.addEventListener("click", async () => {
+      let opened = false;
+      try {
+        const res = await api("/api/open-url", { url: SUPPORT_URL });
+        opened = !!(res && res.ok);
+      } catch (_) { /* fail-open: try the browser next */ }
+      if (!opened) {
+        try { window.open(SUPPORT_URL, "_blank", "noopener"); } catch (_) { /* still usable */ }
+      }
+    });
+  }
+
   /* ---------- ingest / poll ---------- */
   function ingest(s) {
     if (s.prefs) {
@@ -580,15 +626,18 @@
   }
 
   async function boot() {
+    let day = 1;
     try {
       const s = await api("/api/state");
       ingest(s);
       applyPrefsToUI(state.prefs);
+      if (s && s.trial && s.trial.day != null) day = s.trial.day;
     } catch (err) {
       applyPrefsToUI(state.prefs);
       drawKnob(state.prefs.threshold);
     }
     paint();
+    requestAnimationFrame(() => showTrialNag(day));
     setInterval(async () => {
       try {
         const s = await api("/api/state");
