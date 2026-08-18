@@ -534,12 +534,122 @@
     }
   });
 
-  /* ---------- unlimited trial nag (fail-open; never gates the app) ---------- */
+  /* ---------- virtual-cable first-run wizard (does not block Activate) ---------- */
   const SUPPORT_URL = "https://github.com/berkkarabacak/noisegator";
+  const VB_CABLE_URL = "https://vb-audio.com/Cable/";
+  const CABLE_RE = /vb[-\s]?audio|vb[-\s]?cable|cable input|cable output|voicemeeter|virtual cable|virtual audio cable/i;
+
+  function isCableName(name) {
+    return CABLE_RE.test(String(name || ""));
+  }
+
+  function pickCableOutput(outputs) {
+    const names = (outputs || []).map((d) => d.name).filter(Boolean);
+    const cableIn = names.find((n) => /cable input/i.test(n));
+    if (cableIn) return cableIn;
+    return names.find(isCableName) || "";
+  }
+
+  function hasVirtualCable(devices) {
+    const pack = devices || state.devices || {};
+    if (pack.virtual_cable && pack.virtual_cable.present) return true;
+    const names = [...(pack.inputs || []), ...(pack.outputs || [])].map((d) => d.name);
+    return names.some(isCableName);
+  }
+
+  function hideCableWizard() {
+    const el = $("#cableOverlay");
+    if (el) el.hidden = true;
+  }
+
+  function showCableWizard() {
+    const el = $("#cableOverlay");
+    if (!el || el.dataset.shown === "1") return;
+    el.dataset.shown = "1";
+    el.hidden = false;
+    const btn = $("#cableSetupBtn");
+    if (btn) btn.focus();
+  }
+
+  function maybeShowCableWizard() {
+    const trial = $("#trialOverlay");
+    if (trial && !trial.hidden) return;
+    if (hasVirtualCable(state.devices)) {
+      autoSelectCableIfEmpty();
+      return;
+    }
+    showCableWizard();
+  }
+
+  async function autoSelectCableIfEmpty(force) {
+    const cable = (state.devices && state.devices.virtual_cable && state.devices.virtual_cable.output)
+      || pickCableOutput((state.devices && state.devices.outputs) || []);
+    if (!cable) return false;
+    const current = String(state.prefs.output || "").trim();
+    if (!force && current) return true;
+    await patchPrefs({ output: cable });
+    state._devSig = "";
+    renderSelect($("#outputSelect"), (state.devices && state.devices.outputs) || [], cable);
+    return true;
+  }
+
+  async function openOfficialCablePage() {
+    let opened = false;
+    try {
+      const res = await api("/api/open-url", { url: VB_CABLE_URL });
+      opened = !!(res && res.ok);
+    } catch (_) { /* fail-open */ }
+    if (!opened) {
+      try { window.open(VB_CABLE_URL, "_blank", "noopener"); } catch (_) { /* still usable */ }
+    }
+  }
+
+  async function refreshDevicesFromApi() {
+    const devices = await api("/api/devices");
+    if (!devices) return null;
+    state.devices = devices;
+    state._devSig = "";
+    renderSelect($("#inputSelect"), devices.inputs || [], state.prefs.input);
+    renderSelect($("#outputSelect"), devices.outputs || [], state.prefs.output);
+    renderEchoSelect($("#echoSelect"), devices.outputs || [], state.prefs.echo_back_device);
+    return devices;
+  }
+
+  const cableOverlay = $("#cableOverlay");
+  const cableSetupBtn = $("#cableSetupBtn");
+  const cableInstalledBtn = $("#cableInstalledBtn");
+  const cableLaterBtn = $("#cableLaterBtn");
+  if (cableSetupBtn) cableSetupBtn.addEventListener("click", () => { openOfficialCablePage(); });
+  if (cableLaterBtn) cableLaterBtn.addEventListener("click", hideCableWizard);
+  if (cableOverlay) {
+    cableOverlay.addEventListener("click", (e) => {
+      if (e.target === cableOverlay) hideCableWizard();
+    });
+  }
+  if (cableInstalledBtn) {
+    cableInstalledBtn.addEventListener("click", async () => {
+      const note = $("#cableNote");
+      let devices = null;
+      try {
+        devices = await refreshDevicesFromApi();
+      } catch (_) { devices = null; }
+      const found = hasVirtualCable(devices || state.devices);
+      if (found) {
+        await autoSelectCableIfEmpty(true);
+        if (note) note.textContent = "Virtual microphone found. Output is set to the cable playback device. Pick that cable as the mic in Discord, Zoom, or Teams.";
+        hideCableWizard();
+        return;
+      }
+      if (note) note.textContent = "No virtual cable yet. Finish the official VB-CABLE installer, then click again. A restart of NoiseGator may be needed after the driver is installed.";
+    });
+  }
+
+  /* ---------- unlimited trial nag (fail-open; never gates the app) ---------- */
 
   function hideTrialNag() {
     const el = $("#trialOverlay");
     if (el) el.hidden = true;
+    maybeShowCableWizard();
   }
 
   function showTrialNag(day) {
@@ -565,7 +675,12 @@
     });
   }
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && trialOverlay && !trialOverlay.hidden) hideTrialNag();
+    if (e.key !== "Escape") return;
+    if (trialOverlay && !trialOverlay.hidden) {
+      hideTrialNag();
+      return;
+    }
+    if (cableOverlay && !cableOverlay.hidden) hideCableWizard();
   });
   if (trialSupport) {
     trialSupport.addEventListener("click", async () => {

@@ -33,6 +33,33 @@ jobs:
       - name: Build one-file exe
         run: pyinstaller --noconfirm NoiseGator.spec
 
+      - name: Install Inno Setup
+        working-directory: ${{ github.workspace }}
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress -y
+          if ($LASTEXITCODE -ne 0) {
+            $tmp = Join-Path $env:TEMP "innosetup-setup.exe"
+            Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile $tmp
+            Start-Process -FilePath $tmp -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART" -Wait
+          }
+
+      - name: Compile installer
+        working-directory: ${{ github.workspace }}
+        shell: pwsh
+        run: |
+          $candidates = @(
+            "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
+            "${env:ProgramFiles}\Inno Setup 6\ISCC.exe",
+            "C:\ProgramData\chocolatey\bin\ISCC.exe"
+          )
+          $iscc = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $iscc) { throw "ISCC.exe not found after Inno Setup install" }
+          & $iscc installer\NoiseGator.iss
+          if (-not (Test-Path "installer-out\NoiseGator-Setup.exe")) {
+            throw "installer-out\NoiseGator-Setup.exe was not produced"
+          }
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -40,11 +67,20 @@ jobs:
           path: app/dist/NoiseGator.exe
           if-no-files-found: error
 
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NoiseGator-Setup.exe
+          path: installer-out/NoiseGator-Setup.exe
+          if-no-files-found: error
+
       - name: Publish release (tag)
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: app/dist/NoiseGator.exe
+          files: |
+            app/dist/NoiseGator.exe
+            installer-out/NoiseGator-Setup.exe
           generate_release_notes: true
 
       - name: Publish release (windows channel)
@@ -53,7 +89,9 @@ jobs:
         with:
           tag_name: windows
           name: Windows
-          files: app/dist/NoiseGator.exe
+          files: |
+            app/dist/NoiseGator.exe
+            installer-out/NoiseGator-Setup.exe
           generate_release_notes: false
 
       - name: Publish release (main)
@@ -63,8 +101,12 @@ jobs:
           tag_name: v0.10
           name: NoiseGator Modern 0.10
           body: |
-            One-file Windows build of NoiseGator Modern 0.10.
+            Windows build of NoiseGator Modern 0.10.
+            Portable NoiseGator.exe plus NoiseGator-Setup.exe (Start Menu / Desktop).
             dB gate with hysteresis, echo-back, and voice filter.
-            Pair the output with VB-Cable for Discord, Zoom, or Teams.
-          files: app/dist/NoiseGator.exe
+            First-run helps set up the official VB-CABLE virtual mic for Discord, Zoom, or Teams.
+            The portable exe URL is unchanged.
+          files: |
+            app/dist/NoiseGator.exe
+            installer-out/NoiseGator-Setup.exe
           generate_release_notes: false

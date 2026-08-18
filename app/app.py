@@ -26,9 +26,12 @@ from gate import BUFFER_FRAMES, CHANNELS, SAMPLE_RATE
 VERSION = "0.10"
 APP_NAME = "NoiseGator"
 SUPPORT_URL = "https://github.com/berkkarabacak/noisegator"
+VB_CABLE_URL = "https://vb-audio.com/Cable/"
 ALLOWED_OPEN_URLS = frozenset({
     SUPPORT_URL,
     SUPPORT_URL + "/",
+    VB_CABLE_URL,
+    "https://vb-audio.com/Cable",
 })
 
 
@@ -139,6 +142,43 @@ def migrate_hysteresis(value: Any) -> float:
     return max(1.0, min(12.0, h))
 
 
+_CABLE_MARKERS = (
+    "vb-audio",
+    "vb audio",
+    "vb-cable",
+    "vb cable",
+    "cable input",
+    "cable output",
+    "voicemeeter",
+    "virtual cable",
+    "virtual audio cable",
+)
+
+
+def device_looks_like_cable(name: str) -> bool:
+    n = (name or "").casefold()
+    return any(marker in n for marker in _CABLE_MARKERS)
+
+
+def pick_cable_output(outputs: list[Any]) -> str:
+    """Playback device the gate should send into (typically CABLE Input)."""
+    names = [getattr(d, "name", "") for d in outputs]
+    for name in names:
+        if "cable input" in name.casefold():
+            return name
+    for name in names:
+        if device_looks_like_cable(name):
+            return name
+    return ""
+
+
+def any_virtual_cable(inputs: list[Any], outputs: list[Any]) -> bool:
+    for d in list(inputs) + list(outputs):
+        if device_looks_like_cable(getattr(d, "name", "")):
+            return True
+    return False
+
+
 def load_prefs() -> dict[str, Any]:
     path = config_path()
     data = dict(DEFAULTS)
@@ -180,12 +220,36 @@ class AppState:
         self.inputs, self.outputs, self.have_live = list_devices()
         if demo:
             self.have_live = False
+        self._maybe_autoselect_cable_output()
+
+    def refresh_devices(self) -> None:
+        self.inputs, self.outputs, self.have_live = list_devices()
+        if self.engine.demo_forced:
+            self.have_live = False
+
+    def _maybe_autoselect_cable_output(self) -> None:
+        """First-run only: pick a virtual-cable playback device if none saved."""
+        if str(self.prefs.get("output") or "").strip():
+            return
+        cable = pick_cable_output(self.outputs)
+        if not cable:
+            return
+        self.prefs["output"] = cable
+        try:
+            save_prefs(self.prefs)
+        except Exception:
+            pass
 
     def devices_payload(self) -> dict[str, Any]:
+        cable = pick_cable_output(self.outputs)
         return {
             "inputs": [d.to_dict() for d in self.inputs],
             "outputs": [d.to_dict() for d in self.outputs],
             "live": self.have_live and not self.engine.demo_forced,
+            "virtual_cable": {
+                "present": any_virtual_cable(self.inputs, self.outputs),
+                "output": cable,
+            },
         }
 
     def full_state(self) -> dict[str, Any]:
@@ -301,6 +365,7 @@ class Handler(BaseHTTPRequestHandler):
             self._send(code, body, ctype)
             return
         if path == "/api/devices":
+            STATE.refresh_devices()
             code, body, ctype = _json_bytes(STATE.devices_payload())
             self._send(code, body, ctype)
             return

@@ -38,7 +38,7 @@
         "url": "https://berkkarabacak.github.io/noisegator/",
         "image": "https://berkkarabacak.github.io/noisegator/preview.png",
         "description": "Free Windows microphone noise gate. Cut keyboard clicks and room noise on Discord, Zoom, and Teams. Hear yourself locally. Send a clean mic. No account.",
-        "downloadUrl": "https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe",
+        "downloadUrl": "https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator-Setup.exe",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -61,7 +61,7 @@
             "name": "Does NoiseGator work with Discord, Zoom, and Teams?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Route the gated output through a virtual cable (VB-Cable or similar), then pick that cable as the microphone in Discord, Zoom, or Teams."
+              "text": "Yes. First run helps you set up the official VB-CABLE virtual mic. Then pick that cable as the microphone in Discord, Zoom, or Teams."
             }
           },
           {
@@ -69,7 +69,7 @@
             "name": "Do I need VB-Cable?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, or another virtual cable. NoiseGator does not create a virtual microphone. You send the gated output to a cable, then the call app uses that cable as its mic."
+              "text": "A signed virtual-cable driver is still required. First run opens the official VB-CABLE page and can auto-select CABLE Input after you install it. NoiseGator does not create a system microphone and does not bundle the driver."
             }
           },
           {
@@ -93,7 +93,7 @@
             "name": "Does it create a virtual microphone?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Pair it with VB-Cable or similar, then set that cable as the mic in your call app."
+              "text": "No. Windows needs a signed driver for that. The first-run wizard opens the official VB-Audio VB-CABLE page. After you install that driver, NoiseGator can select it as the output. Discord, Zoom, and Teams still pick that device as the microphone."
             }
           }
         ]
@@ -137,7 +137,7 @@
           <a href="#faq">FAQ</a>
           <a href="https://github.com/berkkarabacak/noisegator" rel="noopener">GitHub</a>
         </div>
-        <a class="btn btn-nav" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe" rel="noopener">Get the exe</a>
+        <a class="btn btn-nav" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator-Setup.exe" rel="noopener">Get the installer</a>
       </div>
     </nav>
 
@@ -145,14 +145,15 @@
       <header class="hero" id="top">
         <p class="kicker">Free Windows mic noise gate</p>
         <h1>Kill keyboard noise on your mic<br /><em>Before Discord hears it.</em></h1>
-        <p class="pitch">Free noise gate for Discord, Zoom, and Teams. Cut keyboard clicks and room noise. Hear yourself locally. Send a clean mic through a virtual cable.</p>
+        <p class="pitch">Free noise gate for Discord, Zoom, and Teams. Cut keyboard clicks and room noise. Hear yourself locally. First run helps set up the official virtual mic so you can send a clean signal.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe" rel="noopener">Get the exe</a>
+          <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator-Setup.exe" rel="noopener">Get the installer</a>
+          <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe" rel="noopener">Portable exe</a>
           <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/raw/main/downloads/NoiseGator-Modern.zip" rel="noopener">Source</a>
         </div>
         <ul class="stats" aria-label="Product facts">
           <li><strong>Free</strong><span>no account</span></li>
-          <li><strong>Windows</strong><span>one-file</span></li>
+          <li><strong>Windows</strong><span>installer + exe</span></li>
           <li><strong>dB gate</strong><span>−60…0</span></li>
         </ul>
         <p class="works-label">Works with</p>
@@ -183,7 +184,7 @@
         <div class="section-head">
           <p class="kicker">The problem</p>
           <h2 id="why-title">Your call hears the keyboard first</h2>
-          <p class="section-sub">NoiseGator is a local microphone noise gate, not NVIDIA Broadcast or Krisp. It does not create a virtual mic.</p>
+          <p class="section-sub">NoiseGator is a local microphone noise gate, not NVIDIA Broadcast or Krisp. It does not create a virtual mic by itself — first run walks you through the official VB-CABLE driver.</p>
         </div>
         <div class="why-grid">
           <article class="card">
@@ -320,7 +321,7 @@
               </svg>
             </div>
             <h3>Routing</h3>
-            <p>Pick input, output, and an echo-back device, or Off. NoiseGator does not create a virtual microphone. Pair it with VB-Cable for Discord, Zoom, or Teams.</p>
+            <p>Pick input, output, and an echo-back device, or Off. First run helps set up the official VB-CABLE virtual mic. Discord, Zoom, or Teams still use that cable as their microphone.</p>
           </article>
         </div>
       </section>
@@ -329,7 +330,7 @@
         <div class="section-head">
           <p class="kicker">Four steps</p>
           <h2 id="setup-title">Into Discord, Zoom, or Teams</h2>
-          <p class="section-sub">Needs VB-Cable or similar. NoiseGator does not create a virtual microphone.</p>
+          <p class="section-sub">First run helps you set up the official VB-CABLE virtual mic. Discord, Zoom, and Teams still pick that device as the microphone. NoiseGator does not ship a driver.</p>
         </div>
         <ol class="steps">
           <li class="card step">
@@ -339,8 +340,8 @@
           </li>
           <li class="card step">
             <span class="n">02</span>
-            <h3>VB-Cable</h3>
-            <p>Output → VB-Cable Input.</p>
+            <h3>Virtual mic</h3>
+            <p>First run opens the official VB-CABLE page. After install, output auto-selects CABLE Input.</p>
           </li>
           <li class="card step">
             <span class="n">03</span>
@@ -368,11 +369,11 @@
           </details>
           <details class="card faq-item">
             <summary>Does NoiseGator work with Discord, Zoom, and Teams?</summary>
-            <p>Yes. Route the gated output through a virtual cable (VB-Cable or similar), then pick that cable as the microphone in Discord, Zoom, or Teams.</p>
+            <p>Yes. First run helps you set up the official VB-CABLE virtual mic. Then pick that cable as the microphone in Discord, Zoom, or Teams.</p>
           </details>
           <details class="card faq-item">
             <summary>Do I need VB-Cable?</summary>
-            <p>Yes, or another virtual cable. NoiseGator does not create a virtual microphone. You send the gated output to a cable, then the call app uses that cable as its mic.</p>
+            <p>A signed virtual-cable driver is still required. First run opens the official VB-CABLE page and can auto-select CABLE Input after you install it. NoiseGator does not create a system microphone and does not bundle the driver.</p>
           </details>
           <details class="card faq-item">
             <summary>Is NoiseGator free?</summary>
@@ -384,7 +385,7 @@
           </details>
           <details class="card faq-item">
             <summary>Does it create a virtual microphone?</summary>
-            <p>No. Pair it with VB-Cable or similar, then set that cable as the mic in your call app.</p>
+            <p>No. Windows needs a signed driver for that. The first-run wizard opens the official VB-Audio VB-CABLE page. After you install that driver, NoiseGator can select it as the output. Discord, Zoom, and Teams still pick that device as the microphone.</p>
           </details>
         </div>
       </section>
@@ -396,7 +397,8 @@
           <p>The app is free, with no account. If it saves your calls, star the repo.</p>
           <div class="cta">
             <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator" rel="noopener">Star on GitHub</a>
-            <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe" rel="noopener">Get the exe</a>
+            <a class="btn btn-ghost" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator.exe" rel="noopener">Portable exe</a>
+            <a class="btn btn-primary" href="https://github.com/berkkarabacak/noisegator/releases/latest/download/NoiseGator-Setup.exe" rel="noopener">Get the installer</a>
           </div>
         </div>
       </section>
