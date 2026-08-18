@@ -43,7 +43,7 @@ NoiseGator does **not** create a virtual microphone. For Discord, Zoom, Teams, e
 
 1. Set **Input** to your real microphone.
 2. Set **Output** to the virtual cable’s input (e.g. VB-Cable on Windows, BlackHole / Loopback on macOS, Pulse/PipeWire null sink or `snd-aloop` on Linux).
-3. In the chat app, pick the virtual cable’s **output / playback** device as the microphone.
+3. On Windows, first run can set the default recording device to the cable capture side (usually **CABLE Output**), so Discord / Zoom / Teams can stay on **Default microphone**. Apps that already saved a specific mic still need Default or that cable.
 
 ## Controls
 
@@ -82,6 +82,7 @@ Original NoiseGator was released under **CC BY-NC 2.0**. This project is a UI re
 app.py          entry (HTTP + window)
 gate.py         noise gate, attack/release, hysteresis, voice filter
 audio_io.py     devices + PortAudio stream / demo talker
+win_default_mic.py  Windows default recording helper (IPolicyConfig)
 web/            HTML / CSS / JS dashboard
 NoiseGator.spec PyInstaller one-file spec (build on Windows)
 ```
