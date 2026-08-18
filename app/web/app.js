@@ -635,8 +635,26 @@
       } catch (_) { devices = null; }
       const found = hasVirtualCable(devices || state.devices);
       if (found) {
-        await autoSelectCableIfEmpty(true);
-        if (note) note.textContent = "Virtual microphone found. Output is set to the cable playback device. Pick that cable as the mic in Discord, Zoom, or Teams.";
+        let applied = null;
+        try {
+          applied = await api("/api/apply-virtual-cable", { force: true });
+        } catch (_) { applied = null; }
+        if (applied && applied.prefs) {
+          state.prefs = { ...state.prefs, ...applied.prefs };
+        }
+        if (applied && applied.devices) {
+          state.devices = applied.devices;
+          state._devSig = "";
+          renderSelect($("#outputSelect"), applied.devices.outputs || [], state.prefs.output);
+        } else {
+          await autoSelectCableIfEmpty(true);
+        }
+        const micOk = !!(applied && applied.default_mic && applied.default_mic.ok);
+        if (note) {
+          note.textContent = micOk
+            ? "Virtual microphone found. Output is set to the cable, and Windows default microphone is set so Discord, Zoom, and Teams can stay on Default microphone."
+            : "Virtual microphone found. Output is set to the cable playback device. Discord, Zoom, and Teams can stay on Default microphone if Windows already uses that cable — otherwise pick Default or CABLE Output once.";
+        }
         hideCableWizard();
         return;
       }
