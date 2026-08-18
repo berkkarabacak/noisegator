@@ -227,18 +227,49 @@ class AppState:
         if self.engine.demo_forced:
             self.have_live = False
 
+    def _set_default_recording(self) -> dict[str, Any]:
+        """Point Windows default/comms recording at the cable capture device."""
+        try:
+            from win_default_mic import set_default_recording_to_cable
+            return set_default_recording_to_cable()
+        except Exception:
+            return {"ok": False, "device": "", "error": "helper"}
+
+    def apply_virtual_cable(self, force: bool = False) -> dict[str, Any]:
+        """Select cable playback + set default recording. Fail-open."""
+        self.refresh_devices()
+        present = any_virtual_cable(self.inputs, self.outputs)
+        cable = pick_cable_output(self.outputs)
+        if present and cable and (force or not str(self.prefs.get("output") or "").strip()):
+            self.prefs["output"] = cable
+            try:
+                save_prefs(self.prefs)
+            except Exception:
+                pass
+        default_mic: dict[str, Any] = {"ok": False, "device": "", "error": None}
+        if present:
+            default_mic = self._set_default_recording()
+        return {
+            "ok": present,
+            "present": present,
+            "output": cable or str(self.prefs.get("output") or ""),
+            "default_mic": default_mic,
+            "devices": self.devices_payload(),
+            "prefs": self.prefs,
+        }
+
     def _maybe_autoselect_cable_output(self) -> None:
-        """First-run only: pick a virtual-cable playback device if none saved."""
+        """First-run only: pick a virtual-cable playback device if none saved.
+
+        Also sets Windows default recording + communications recording to the
+        cable capture device (usually CABLE Output) so call apps can stay on
+        Default microphone. Fail-open. Never overwrites a saved output.
+        """
         if str(self.prefs.get("output") or "").strip():
             return
-        cable = pick_cable_output(self.outputs)
-        if not cable:
+        if not any_virtual_cable(self.inputs, self.outputs):
             return
-        self.prefs["output"] = cable
-        try:
-            save_prefs(self.prefs)
-        except Exception:
-            pass
+        self.apply_virtual_cable(force=False)
 
     def devices_payload(self) -> dict[str, Any]:
         cable = pick_cable_output(self.outputs)
@@ -408,6 +439,12 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/reset":
             STATE.reset_defaults()
             code, body, ctype = _json_bytes({"ok": True, "prefs": STATE.prefs})
+            self._send(code, body, ctype)
+            return
+        if path == "/api/apply-virtual-cable":
+            force = bool(payload.get("force", True))
+            result = STATE.apply_virtual_cable(force=force)
+            code, body, ctype = _json_bytes(result)
             self._send(code, body, ctype)
             return
         if path == "/api/open-url":
