@@ -48,15 +48,30 @@ user.
 3. If a cable is already present on launch and the user has no saved
    output device, NoiseGator auto-selects that cable. A saved output is
    never overwritten.
-4. The portable `NoiseGator.exe` download stays available.
+4. **Default-microphone helper** (userspace only). On those same two
+   paths — wizard **I already installed it**, or launch with empty
+   `prefs.output` and a cable present — NoiseGator also sets the Windows
+   default *recording* device and the default *communications recording*
+   device to the cable’s capture endpoint (usually **CABLE Output**).
+   Discord, Zoom, and Teams can then stay on **Default microphone**.
+   The helper uses `IPolicyConfig.SetDefaultEndpoint`, the same COM call
+   the Sound control panel uses. It never changes default playback
+   (speakers / headphones). It is fail-open: a COM error, a non-Windows
+   host, or a missing capture device leaves prefs and audio running.
+5. The portable `NoiseGator.exe` download stays available.
 
 The wizard does not block the audio engine and does not disable
 Activate. Esc or **Not now** dismisses it.
 
 ## What remains
 
-A fully silent “one click and Discord just works” path still needs one
-of:
+The helper cannot override an app that already saved a *specific*
+microphone (not Default). Those apps need a one-time change to Default
+or to CABLE Output. Some apps only reread the default mic after a
+restart.
+
+A fully silent “one click and Discord just works” path, including
+shipping the driver itself, still needs one of:
 
 - a **VB-Audio redistribution license**, so an official VB-CABLE
   installer can ship next to NoiseGator (the user would still accept
@@ -64,12 +79,12 @@ of:
 - a **SysVAD-derived** virtual-audio driver, an **EV code-signing**
   certificate, and **Microsoft attestation** so Windows will load it.
 
-Until then, Discord, Zoom, and Teams must be told to use the virtual
-cable as their microphone (usually **CABLE Output**). NoiseGator cannot
-do that from userspace.
+Until then, a signed virtual cable still has to be installed from the
+official VB-Audio page. NoiseGator does not create a system microphone.
 
 ## Related
 
 - Official VB-CABLE: https://vb-audio.com/Cable/
+- Default-mic helper: `app/win_default_mic.py`
 - App first-run UI: `app/web/index.html` (virtual-mic modal)
 - Installer script: `installer/NoiseGator.iss`

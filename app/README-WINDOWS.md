@@ -26,7 +26,7 @@ For Discord / Zoom / Teams you still need a **virtual cable** (VB-Cable). Set:
 - Input → your real microphone  
 - Output → VB-Cable Input  
 - Echo-back device → headphones (hear yourself) or **Off**  
-- In the chat app, pick the cable’s playback device as the microphone
+- Discord / Zoom / Teams can stay on Default microphone (first run sets the Windows default recording device to CABLE Output when a cable is detected)
 
 ## Build a one-file exe (on Windows)
 

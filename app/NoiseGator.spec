@@ -23,6 +23,7 @@ hiddenimports = [
     "webview.platforms.edgechromium",
     "cffi",
     "_cffi_backend",
+    "win_default_mic",
 ]
 
 # PortAudio shared libs live next to the sounddevice / _sounddevice_data wheels.
